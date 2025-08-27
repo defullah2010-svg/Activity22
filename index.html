@@ -499,28 +499,15 @@ function printPDF(btn){
   wrapper.style.backgroundPosition = 'center';
   wrapper.appendChild(content);
 
-  // ✅ إدراج الصور داخل Frame مع ليبل "الشواهد" قبل رائدة النشاط ومديرة المدرسة
+  // ✅ إدراج الصور فقط (بدون إطار أو كلمة الشواهد) قبل رائدة النشاط ومديرة المدرسة
   const tabImages = uploadedImages[tabId] || [];
   if (tabImages.length > 0) {
-    const shohodWrapper = document.createElement('div');
-    shohodWrapper.style.border = "2px solid #333";
-    shohodWrapper.style.padding = "8px";
-    shohodWrapper.style.margin = "15px 0";
-    shohodWrapper.style.borderRadius = "8px";
-
-    const shohodLabel = document.createElement('label');
-    shohodLabel.textContent = "الشواهد";
-    shohodLabel.style.display = "block";
-    shohodLabel.style.textAlign = "center";
-    shohodLabel.style.fontSize = "16px";
-    shohodLabel.style.fontWeight = "bold";
-    shohodLabel.style.marginBottom = "10px";
-
     const imagesWrapper = document.createElement('div');
     imagesWrapper.style.display = 'flex';
     imagesWrapper.style.flexWrap = 'wrap';
     imagesWrapper.style.justifyContent = 'center';
     imagesWrapper.style.gap = '5px';
+    imagesWrapper.style.margin = '15px 0';
 
     tabImages.forEach(src => {
       const img = document.createElement('img');
@@ -531,14 +518,11 @@ function printPDF(btn){
       imagesWrapper.appendChild(img);
     });
 
-    shohodWrapper.appendChild(shohodLabel);
-    shohodWrapper.appendChild(imagesWrapper);
-
     // إدخاله قبل حقل رائدة النشاط ومديرة المدرسة
     const activityDiv = Array.from(content.querySelectorAll('div'))
       .find(div => div.innerHTML.includes('رائدة النشاط'));
     if (activityDiv) {
-      content.insertBefore(shohodWrapper, activityDiv);
+      content.insertBefore(imagesWrapper, activityDiv);
     }
   }
 
